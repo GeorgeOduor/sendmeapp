@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+ {% load static %}
+{% block body %}
+
+
+    <!--== Slider Area Start ==-->
+    <section id="slider-area">
+        <!--== slide Item One ==-->
+        <div class="single-slide-item overlay">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-5">
+
+                        {% if request.user.is_authenticated %}
+                        <div class="book-a-car">
+<!--                             sign up-->
+
+<!--                             end sign up-->
+
+                            {% if journeyStatus %}
+                                <h4>You Have an existing Journey.</h4>
+                                 <a href="{% url 'driver:currentjourney' %}"><button type="button"  class="btn btn-success">View Details</button></a>
+                            {% else %}
+                                {% crispy form %}
+                            {% endif %}
+<!--                            <form action="index.html">-->
+                                <!--== Pick Up Location ==-->
+
+<!--                            </form>-->
+                             </div>
+                             {% else %}
+                             <div class="login-page-content">
+                		<div class="login-form">
+                			<h3>Sign Up</h3>
+							<form action="index.html">
+								<div class="name">
+									<div class="row">
+										<div class="col-md-6">
+											<input type="text" placeholder="First Name">
+										</div>
+										<div class="col-md-6">
+											<input type="text" placeholder="Last Name">
+										</div>
+									</div>
+								</div>
+								<div class="username">
+									<input type="email" placeholder="Email">
+								</div>
+								<div class="username">
+									<input type="text" placeholder="Username">
+								</div>
+								<div class="password">
+									<input type="password" placeholder="Password">
+								</div>
+								<div class="log-btn">
+									<button type="submit"><i class="fa fa-check-square"></i> Sign Up</button>
+								</div>
+							</form>
+                		</div>
+                	</div>
+                        {% endif %}
+
+
+                    </div>
+
+                    <div class="col-lg-7 text-right">
+                        <div class="display-table">
+                            <div class="display-table-cell">
+                                <div class="slider-right-text">
+                                    <h1>DRIVE SURE!</h1>
+                                    <p>Quick,Efficient and Economical.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--== slide Item One ==-->
+    </section>
+
+{% endblock body %}
