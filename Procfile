@@ -1,0 +1,1 @@
+web: gunicorn sendmeapp2.wsgi --log-file -

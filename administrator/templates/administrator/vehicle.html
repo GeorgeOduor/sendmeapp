@@ -1,0 +1,128 @@
+{% extends 'administrator/base.html' %}
+
+{%  block page-title %}
+<!--<h1>Vehicle view</h1>-->
+{%  endblock page-title %}
+{% block body %}
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card elevation-3">
+            <div class="card-header">
+                <div class="card-title">
+                    <p>Vehicle Details</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <tr>
+                    <th>Particulars</th>
+                    <th>Detail</th>
+                  </tr>
+                    <tr>
+                      <td><p>Registration Number</p></td>
+                      <td><p>{{vehicle_details.RegistrationNumber}}</p></td>
+                    </tr>
+                    <tr>
+                      <td><p>Chassis Number</p></td>
+                      <td><p>{{vehicle_details.ChassisNumber}}</p></td>
+                    </tr>
+                    <tr>
+                      <td><p>Engine Number</p></td>
+                      <td><p>{{vehicle_details.EngineNumber}}</p></td>
+                    </tr>
+                    <tr>
+                      <td><p>Year of Manufacture</p></td>
+                      <td><p>{{vehicle_details.YearofManufacture}}</p></td>
+                    </tr>
+                    <tr>
+                      <td><p>Vehicle Value</p></td>
+                      <td><p>{{vehicle_details.VehicleValue}}</p></td>
+                    </tr>
+                    <tr>
+                      <td><p>Availability</p></td>
+                      <td><p>{{vehicle_details.Availability}}</p></td>
+                    </tr>
+                    <tr>
+                      <td><p>TLB Licence</p></td>
+                      <td><p>{{vehicle_details.TLBLicence}}</p></td>
+                    </tr>
+                    <tr>
+                      <td><p>TLB Expiration Date</p></td>
+                      <td><p>{{vehicle_details.TLBExpirationDate}}</p></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="card elevation-3">
+            <div class="card-header">
+                <div class="card-title">
+                    <p mb-3> Activity </p>
+                </div>
+            </div>
+            <div class="card-body">
+                <table id="example2" class="table table-bordered table-hover">
+                    <thead> <tr>
+                    <th>From</th>
+                    <th>To</th>
+                    <th>Distance</th>
+                    <th>Departure</th>
+                    <th>Arrival</th>
+                    <th>Premium</th>
+                  </tr></thead>
+                  {% for i in milage %}
+                      <tr>
+                        <td>{{ i.From }}</td>
+                        <td>{{ i.To }}</td>
+                        <td>{{ i.Distance }}</td>
+                        <td>{{ i.StartTime }}</td>
+                        <td>{{ i.EndTime }}</td>
+                        <td>{{ i.premium }}</td>
+                      </tr>
+                  {% endfor %}
+                </table>
+            </div>
+        </div>
+        <div class="card elevation-3">
+            <div class="card-header">
+                <div class="card-title">
+                    <p mb-3> Actions </p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <a href="{% url 'administrator:delete' vehicle_details.vehicle_id %}">
+                            <button type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash" aria-hidden="true"></i>
+                                Delete this Vehicle
+                            </button>
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <a href="{% url 'administrator:home' %}">
+                            <button type="button" class="btn btn-primary btn-sm">
+                                <i class="fa fa-arrow-left" aria-hidden="true"></i> Back
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+  $(function () {
+    $("#example1").DataTable();
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false
+    });
+  });
+</script>
+{% endblock body %}

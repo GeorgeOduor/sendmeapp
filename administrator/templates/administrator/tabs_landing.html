@@ -1,0 +1,104 @@
+{% extends 'administrator/base.html' %}
+{% load static %}
+{%  block page-title %}
+<h1>Reports View</h1>
+{%  endblock page-title %}
+{% block body %}
+
+
+<div class="row">
+<div class="col-sm-12">
+  <div class="card card-default">
+    <div class="card-header d-flex p-0">
+      <ul id="tabcard" class="nav nav-pills p-2">
+        <li class="nav-item">
+          <a class="nav-link active show" href="#tabcard-Tab1" data-toggle="tab">Trips</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#tabcard-Tab3" data-toggle="tab">Premiums</a>
+        </li>
+      </ul>
+      <h3 class="card-title p-3 ml-auto">Reports</h3>
+      <div class="tools pt-3 pb-3 pr-2 mr-2">
+        <button type="button" class="btn btn-tool pb-0 pt-0" data-card-widget="collapse">
+          <i class="fa fa-minus"></i>
+        </button>
+        <button type="button" class="btn btn-tool pb-0 pt-0" data-card-widget="remove">
+          <i class="fa fa-times"></i>
+        </button>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="tab-content">
+        <div class="tab-pane active" id="tabcard-Tab1">
+          <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th>From</th>
+                  <th>To</th>
+                  <th>DriverID</th>
+                  <th>Depature</th>
+                  <th>Arrival</th>
+                  <th>Duration</th>
+                  <th>Distance</th>
+                  <th>Premium</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for i in journey %}
+                <tr>
+                  <td>{{i.From}}</td>
+                  <td>{{i.To}}</td>
+                  <td>{{i.Driver_id}}</td>
+                  <td>{{i.StartTime}}</td>
+                  <td>{{i.EndTime}}</td>
+                  <td>{{i.Duration}}</td>
+                  <td>{{i.Distance}}</td>
+                  <td>{{i.premium}}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                 <tr>
+                  <th>From</th>
+                  <th>To</th>
+                  <th>DriverID</th>
+                  <th>Depature</th>
+                  <th>Arrival</th>
+                  <th>Duration</th>
+                  <th>Distance</th>
+                  <th>Premium</th>
+                </tr>
+                </tfoot>
+              </table>
+        </div>
+        <div class="tab-pane" id="tabcard-Tab3">
+          Content 3
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    </div>
+
+<script>
+  $(function () {
+    $("#example1").DataTable();
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      'dom': 'Bfrtip',
+      'buttons': [
+        'copy', 'excel', 'pdf'
+    ]
+    });
+  });
+</script>
+
+
+
+{% endblock body %}

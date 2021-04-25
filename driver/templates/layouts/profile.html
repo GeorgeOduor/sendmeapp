@@ -1,0 +1,25 @@
+{% load crispy_forms_tags %}
+<div class="container">
+    <h6 class="muted mb-2">Please Finish your registration by filling your information in the form below.</h6>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+<header class="card-header">
+
+</header>
+<article class="card-body">
+<form class="login-form" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        {% crispy form %}
+<!--        <button type="submit" class="btn btn-primary"> <i class="fa fa-check-square"></i> Submit  </button>-->
+    </div> <!-- form-group// -->
+    <small class="text-muted">By clicking the 'Submit' button, you confirm that you accept our <br> Terms of use and Privacy Policy.</small>
+</form>
+</article> <!-- card-body end .// -->
+<div class="border-top card-body text-center">Have an account? <a href="">Log In</a></div>
+</div>
+        </div>
+    </div>
+</div>
+

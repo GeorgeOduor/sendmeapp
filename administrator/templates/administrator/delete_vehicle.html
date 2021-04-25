@@ -1,0 +1,33 @@
+{% extends 'administrator/base.html' %}
+
+{%  block page-title %}
+<!--<h1>Vehicle view</h1>-->
+{%  endblock page-title %}
+{% block body %}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card elevation-3 col-md-12">
+            <div class="card-header">
+                <div class="card-title">
+                    <p>Delete Vehicle</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <p> Are you sure you want to delete this vehicle from the data base?</p>
+                <p> Please note that this process is irreversible.</p>
+                <form method="post" action="">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash" aria-hidden="true"></i>
+                                        Confirm Delete</button>
+                </form>
+               <a href="{% url 'administrator:home' %}"><button type="button" class="btn btn-success btn-sm mt-3"><i class="fa fa-arrow-left" aria-hidden="true"></i>
+                                        Cancel</button></a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock body %}

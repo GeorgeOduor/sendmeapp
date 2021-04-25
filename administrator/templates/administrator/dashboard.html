@@ -1,0 +1,209 @@
+{% extends 'administrator/base.html' %}
+{%  block page-title %}
+     Dashboard
+{%  endblock page-title %}
+{% block valuestats %}
+<div class="row">
+  <div class="col-12 col-sm-6 col-md-3">
+    <div class="info-box">
+      <span class="info-box-icon bg-info elevation-1"><i class="fa fa-car"></i></span>
+
+      <div class="info-box-content">
+        <span class="info-box-text">Vehicles</span>
+        <span class="info-box-number">
+          {{ valueboxes.vehicle_count }}
+          <small></small>
+        </span>
+      </div>
+      <!-- /.info-box-content -->
+    </div>
+    <!-- /.info-box -->
+  </div>
+  <!-- /.col -->
+  <div class="col-12 col-sm-6 col-md-3">
+    <div class="info-box mb-3">
+      <span class="info-box-icon bg-danger elevation-1"><i class="fa fa-user"></i></span>
+
+      <div class="info-box-content">
+        <span class="info-box-text">Drivers</span>
+        <span class="info-box-number">{{ valueboxes.drivers }}</span>
+      </div>
+      <!-- /.info-box-content -->
+    </div>
+    <!-- /.info-box -->
+  </div>
+  <!-- /.col -->
+  <!-- fix for small devices only -->
+  <div class="clearfix hidden-md-up"></div>
+  <div class="col-12 col-sm-6 col-md-3">
+    <div class="info-box mb-3">
+      <span class="info-box-icon bg-success elevation-1">
+        <i class="fa fa-road"></i></span>
+
+      <div class="info-box-content">
+        <span class="info-box-text">On Transit</span>
+        <span class="info-box-number">{{ valueboxes.on_transit }}</span>
+      </div>
+      <!-- /.info-box-content -->
+    </div>
+    <!-- /.info-box -->
+  </div>
+  <!-- /.col -->
+  <div class="col-12 col-sm-6 col-md-3">
+    <div class="info-box mb-3">
+      <span class="info-box-icon bg-warning elevation-1"><i class="fa fa-users"></i></span>
+
+      <div class="info-box-content">
+        <span class="info-box-text">All Trips</span>
+        <span class="info-box-number">{{ valueboxes.total_journeys }}</span>
+      </div>
+      <!-- /.info-box-content -->
+    </div>
+    <!-- /.info-box -->
+  </div>
+  <!-- /.col -->
+</div>
+{% endblock valuestats %}
+
+{% block body %}
+<div class="row">
+    <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+<!--                <h3 class="card-title">Collapsible Accordion</h3>-->
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <div id="accordion">
+                  <div class="row">
+                    <!-- we are adding the .class so bootstrap.js collapse plugin detects it -->
+                              <div class="col-md-12">
+                    <p class="text-center">
+                      <strong>Trips for the last 5 days</strong>
+                    </p>
+
+                    <div class="chart">
+                      <!-- Sales Chart Canvas -->
+                      <canvas id="myChart" height="180" style="height: 180px;"></canvas>
+                    </div>
+                    <!-- /.chart-responsive -->
+                  </div>
+
+                  </div>
+                  <div class="card">
+                    <div class="card-header">
+                      <h4 class="card-title">
+<!--                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">-->
+                          Vehicles & Drivers
+                        </a>
+                      </h4>
+                    </div>
+<!--                    <div id="collapseTwo" class="panel-collapse collapse">-->
+                      <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">Vehicles</div>
+                                <div class="card-body">
+                                  <table class="table table-condensed">
+                  <tr>
+                    <th>Vehicle ID</th>
+                    <th>Vehicle Capacity</th>
+                    <th style="width: 40px"></th>
+                  </tr>
+                  {% for i in vehicles2 %}
+                                    <tr>
+                                      <td>{{ i.VehicleID }}</td>
+                                      <td>{{ i.VehicleCapacity }}</td>
+                                      <td><a href="{% url 'administrator:vehicle' i.id %}">
+                                          <button type="button" class="btn btn-block btn-primary btn-sm"><i class="fa fa-eye" aria-hidden="true"></i>
+                                        view</button></a> </td>
+                                    </tr>
+                  {% endfor %}
+                </table>
+                                </div>
+                            </div>
+
+                            </div>
+                        <div class="col-md-6">
+
+                            <div class="card">
+                                <div class="card-header">Drivers</div>
+                                <div class="card-body">
+                                  <table class="table table-condensed">
+                  <tr>
+                    <th>Surname</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>NationalID</th>
+                  </tr>
+                  {% for i in drivers %}
+                      <tr>
+                        <td>{{ i.Surname }}</td>
+                        <td>{{ i.FirstName }}</td>
+                        <td>{{ i.LastName }}</td>
+                        <td>{{ i.NationalID }}</td>
+                        <td><a href="{% url 'administrator:driver' i.user_id %}"><button type="button" class="btn btn-block btn-primary btn-sm"><i class="fa fa-eye" aria-hidden="true"></i>
+                          view</button></a> </td>
+                      </tr>
+                  {% endfor %}
+                </table>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                      </div>
+<!--                    </div>-->
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+</div>
+
+<script>
+var ctx = document.getElementById('myChart');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: {{ chart_data.labels | safe }},
+        datasets: [
+        {
+        label               : [],
+        backgroundColor     : 'green',
+        strokeColor         : '#ced4da',
+        pointColor          : '#ced4da',
+        pointStrokeColor    : '#c1c7d1',
+        pointHighlightFill  : '#fff',
+        pointHighlightStroke: 'rgb(220,220,220)',
+        data                : {{ chart_data.dataset | safe }}
+      }
+        ]
+    },
+    options: {
+    showScale               : true,
+    scaleShowGridLines      : false,
+    scaleGridLineColor      : 'rgba(0,0,0,.05)',
+    scaleGridLineWidth      : 1,
+    scaleShowHorizontalLines: true,
+    scaleShowVerticalLines  : true,
+    bezierCurve             : true,
+    bezierCurveTension      : 0.3,
+    pointDot                : false,
+    pointDotRadius          : 4,
+    pointDotStrokeWidth     : 1,
+    pointHitDetectionRadius : 20,
+    datasetStroke           : true,
+    datasetStrokeWidth      : 2,
+    datasetFill             : true,
+    maintainAspectRatio     : false,
+    responsive              : true,
+    legend                  : {display: false}
+
+    }
+});
+</script>
+
+{% endblock body %}
