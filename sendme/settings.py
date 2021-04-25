@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "driver",
     "accounts",
-    'bootstrap_modal_forms',
+    # 'bootstrap_modal_forms',
     'crispy_forms',
     'import_export',
     # 'adminlte3',
