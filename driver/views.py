@@ -1,7 +1,6 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import Group
 from .services import distance, premium, path_to_map
-from .forms import LoginForm, SignUpForm, profile_update
+from .forms import  SignUpForm, profile_update
 from .models import Journey, Vehicle, PremiumRate, Profile
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect
@@ -74,7 +73,6 @@ def currentjourney(request):
             "To": list(journeystat.values_list('To', flat=True))[0],
             "Distance (km)": list(journeystat.values_list('Distance', flat=True))[0]
         }
-
     except:
         JourneyStatistics = False
 

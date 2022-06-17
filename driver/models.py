@@ -21,7 +21,7 @@ class Profile(models.Model):
     Role = models.CharField(max_length=10, choices=[
         ('Admin', 'Administartor'),
         ('Driver', 'Driver'),
-    ],null=True)
+    ], null=True)
     ProfilePic = models.ImageField(upload_to="ProilePics/", blank=True, null=True)
 
     # def __str__(self):
@@ -60,7 +60,7 @@ class Journey(models.Model):
     From = models.CharField(max_length=120, null=False)
     To = models.CharField(max_length=120, null=False)
     Distance = models.DecimalField(decimal_places=2, max_digits=12)
-    Vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE,null=True)
+    Vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE, null=True)
     Driver = models.ForeignKey(User, on_delete=models.CASCADE)
     JourneyStatus = models.BooleanField(blank=False, null=False)
     # Passengers = models.IntegerField(blank=False, null=False)
@@ -68,6 +68,7 @@ class Journey(models.Model):
     EndTime = models.DateTimeField(auto_now=False, null=True, blank=True)
     premium = models.DecimalField(decimal_places=2, max_digits=12, null=False)
     Duration = models.IntegerField(null=True)
+
     def __str__(self):
         return "From " + self.From + " to " + self.To
 
@@ -82,5 +83,6 @@ class CompanyProfile(models.Model):
     registration_number = models.CharField(null=False, max_length=200)
     registration_name = models.CharField(null=False, max_length=200)
     company_logo = models.ImageField(upload_to="ProilePics/", blank=True, null=True)
+
     def __str__(self):
         return self.registration_name
